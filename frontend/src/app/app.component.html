@@ -1,0 +1,37 @@
+
+<img class="ass" src="http://tongdaidatve.vn/images/stories/tintuc/tonghop/2017/tong-dai-thegioididong.jpg" style="padding-right: ">
+<h3 *ngIf="articleIdToUpdate; else create">
+  Update Article for Id: {{articleIdToUpdate}}
+</h3>
+<ng-template #create>
+  <h3> Create New Article </h3>
+</ng-template>
+<div>
+  <form [formGroup]="appForm" (ngSubmit)="onArticleFormSubmit()" >
+    <table>
+      <tr><td>Enter Title</td><td><input formControlName="title">
+        <label *ngIf="articleForm.get('title').invalid && processValidation" [ngClass] = "'error'"> Title is required. </label>
+      </td></tr>
+      <tr><td>Enter Category</td><td><input formControlName="category">
+        <label *ngIf="articleForm.get('category').invalid && processValidation" [ngClass] = "'error'"> Category is required. </label>
+      </td></tr>
+      <tr><td colspan="2">
+        <button *ngIf="!articleIdToUpdate">CREATE</button>
+        <button *ngIf="articleIdToUpdate">UPDATE</button>
+        <button (click)="backToCreateArticle()" *ngIf="articleIdToUpdate">Go Back</button>
+      </td></tr>
+    </table>
+  </form>
+  <br/>
+
+<h3>Article Details</h3>
+<table >
+  <tr><th> Id</th> <th>Mobilename</th><th>descriptio</th><th>cost</th><th>image</th></tr>
+  <tr *ngFor="let article of allMobiles" >
+    <td >{{article.mobileid}}</td> <td>{{article.decription}}</td> <td    class="idas"><img src="{{article.image}}"/></td>
+<td>{{article.cost}}</td>
+    <td><button type="button" (click)="loadArticleToEdit(article.articleId)">Edit</button> </td>
+    <td><button type="button" (click)="deleteArticle(article.articleId)">Delete</button></td>
+  </tr>
+</table>
+</div>
